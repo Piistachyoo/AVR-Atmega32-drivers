@@ -16,6 +16,11 @@
 #include "TMR_config.h"
 #include "../GIE/GIE_interface.h"
 
+/****************** HELPER FUNCTIONS ******************/
+#define CLEAR_ICU_FLAG()		TIFR_REG = (1<<ICF1_PIN)
+#define ICU_Rising_Edge()		SET_BIT(TCCR1B_REG, ICES1)
+#define ICU_Falling_Edge()		CLR_BIT(TCCR1B_REG, ICES1)
+
 /****************** CONFIGURATION FOR TIMER ******************/
 
 

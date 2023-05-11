@@ -24,7 +24,8 @@
 #define TIMSK_REG		*((volatile u8*) 0x59)
 #define TIFR_REG		*((volatile u8*) 0x58)
 #define ASSR_REG		*((volatile u8*) 0x42)
-#define ICR1_REG		*((volatile u16*) 0x46)
+#define ICR1L_REG		*((volatile u8*) 0x46)
+#define ICR1H_REG		*((volatile u8*) 0x47)
 
 /****************** SETTING MACROS FOR PIN NAMES ******************/
 

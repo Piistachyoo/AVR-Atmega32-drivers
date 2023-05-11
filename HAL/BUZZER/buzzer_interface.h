@@ -25,5 +25,7 @@ u8 buzzer_pin  :3;
 void BUZZER_vInit(const buzzer_cfg *PTR_BUZZER);
 void BUZZER_vShortBeep(const buzzer_cfg *PTR_BUZZER);
 void BUZZER_vLongBeep(const buzzer_cfg *PTR_BUZZER);
+void BUZZER_vTurnOn(const buzzer_cfg *PTR_BUZZER);
+void BUZZER_vTurnOff(const buzzer_cfg *PTR_BUZZER);
 
 #endif /* BUZZER_BUZZER_INTERFACE_H_ */

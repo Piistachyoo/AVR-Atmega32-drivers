@@ -9,7 +9,6 @@
 /******************  ******************/
 
 #include "TMR_interface.h"
-#include "../UART/UART_interface.h"
 
 
 void TMR_vInit(const TMR_cfg_t *TMR){
@@ -304,7 +303,8 @@ void TMR_vSetICRValue(const TMR_cfg_t *TMR, u16 Copy_u16ICRValue){
 		case TIMER1_NORMAL:
 		case TIMER1_CTC_OCR:
 		case TIMER1_CTC_ICR:
-			ICR1_REG = Copy_u16ICRValue;
+			ICR1L_REG = (u8)(Copy_u16ICRValue & 0x00FF);
+			ICR1H_REG = (u8)(Copy_u16ICRValue >> 8);
 			break;
 		default: /* Do Nothing */ break;
 		}

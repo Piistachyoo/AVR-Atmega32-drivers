@@ -23,3 +23,11 @@ void BUZZER_vLongBeep(const buzzer_cfg *PTR_BUZZER){
 	for(u32 i=0;i<80000;i++);
 	DIO_vSetPinValue(PTR_BUZZER->buzzer_port, PTR_BUZZER->buzzer_pin, LOW);
 }
+
+void BUZZER_vTurnOn(const buzzer_cfg *PTR_BUZZER){
+	DIO_vSetPinValue(PTR_BUZZER->buzzer_port, PTR_BUZZER->buzzer_pin, HIGH);
+}
+
+void BUZZER_vTurnOff(const buzzer_cfg *PTR_BUZZER){
+	DIO_vSetPinValue(PTR_BUZZER->buzzer_port, PTR_BUZZER->buzzer_pin, LOW);
+}
