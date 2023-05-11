@@ -73,25 +73,23 @@
 #define PSR2_PIN
 
 //TCCR1A BITS
-enum TCCR1A_BITS{
-	WGM10=0,
-	WGM11,
-	FOC1B,
-	FOC1A,
-	COM1B0,
-	COM1B1,
-	COM1A0,
-	COM1A1
-};
+#define WGM10 0
+#define WGM11 1
+#define FOC1B 2
+#define FOC1A 3
+#define COM1B0 4
+#define COM1B1 5
+#define COM1A0 6
+#define COM1A17
 
-enum TCCR1B_BITS{
-	CS10=0,
-	CS11,
-	CS12,
-	WGM12,
-	WGM13,
-	ICES1=6,
-	ICNC1
-};
+//TCCR1B BITS
+#define CS10 0
+#define CS11 1
+#define CS12 2
+#define WGM12 3
+#define WGM13 4
+#define ICES1 6
+#define ICNC1 7
+
 
 #endif /* MCAL_ATMEGA32_TMR_TMR_PRIVATE_H_ */

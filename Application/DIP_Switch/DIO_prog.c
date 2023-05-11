@@ -4,7 +4,7 @@
  *  Created on: Jan 28, 2023
  *      Author: omarm
  */
-
+/*
 #include "DIO_Interface.h"
 
 void SET_Direction(u8 Copy_PORT, u8 Copy_PIN, u8 Direction)//set a specific pin as input or output
@@ -265,3 +265,4 @@ void SET_State_4MSB(u8 Copy_PORT, u8 State)//set 4MSB output pins as high or low
 		}
 	}
 }
+*/

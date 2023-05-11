@@ -27,6 +27,9 @@ void DIO_vSetPinValue(u8 Copy_u8PortName, u8 Copy_u8PinNum, u8 Copy_u8PinVal);
 //reads value on 1 pin in a port
 u8 DIO_u8ReadPinValue(u8 Copy_u8PortName, u8 Copy_u8PinNum);
 
+//toggles value on 1 pin in a port
+void DIO_vTogglePinValue(u8 Copy_u8PortName, u8 Copy_u8PinNum);
+
 //sets data direction of all 8 pins in a port
 void DIO_vSetGroupDir(u8 Copy_u8PortName, u8 Copy_u8PortDir);
 

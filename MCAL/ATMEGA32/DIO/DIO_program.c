@@ -74,6 +74,16 @@ u8 DIO_u8ReadPinValue(u8 Copy_u8PortName, u8 Copy_u8PinNum){
 	return Local_u8ReadValue;
 }
 
+void DIO_vTogglePinValue(u8 Copy_u8PortName, u8 Copy_u8PinNum){
+	switch(Copy_u8PortName)
+	{
+	case PORTA: TOG_BIT(PORTA_REG, Copy_u8PinNum); break;
+	case PORTB: TOG_BIT(PORTB_REG, Copy_u8PinNum); break;
+	case PORTC: TOG_BIT(PORTC_REG, Copy_u8PinNum); break;
+	case PORTD: TOG_BIT(PORTD_REG, Copy_u8PinNum); break;
+	}
+}
+
 //sets data direction of all 8 pins in a port
 void DIO_vSetGroupDir(u8 Copy_u8PortName, u8 Copy_u8PortDir){
 	if(Copy_u8PortDir == OUTPUT)

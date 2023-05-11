@@ -11,9 +11,6 @@
 void UART_vInit(const UART_tcfgInitialize *LOCAL_tcfgUART){
 
 
-	SET_BIT(UCSRB_REG, RXEN_BIT);
-	SET_BIT(UCSRB_REG, TXEN_BIT);
-
 	if(LOCAL_tcfgUART->GLOBAL_tcfgCharSize == CHAR_5_BITS){
 		CLR_BIT(UCSRC_REG, UCSZ0_BIT);
 		CLR_BIT(UCSRC_REG, UCSZ1_BIT);
@@ -98,6 +95,16 @@ void UART_vInit(const UART_tcfgInitialize *LOCAL_tcfgUART){
 	else { /* Do Nothing */ }
 }
 
+void UART_vEnable(const UART_tcfgInitialize *LOCAL_tcfgUART){
+	SET_BIT(UCSRB_REG, RXEN_BIT);
+	SET_BIT(UCSRB_REG, TXEN_BIT);
+}
+
+void UART_vDisable(const UART_tcfgInitialize *LOCAL_tcfgUART){
+	CLR_BIT(UCSRB_REG, RXEN_BIT);
+	CLR_BIT(UCSRB_REG, TXEN_BIT);
+}
+
 void UART_vSendData(u8 LOCAL_u8Data){
 	while( GET_BIT(UCSRA_REG, UDRE_BIT) != 1 );
 	UDR_REG = LOCAL_u8Data;
@@ -115,4 +122,10 @@ void UART_vSendString(u8 *Copy_u8Str){
 	while(*Copy_u8Str){
 		UART_vSendData(*(Copy_u8Str++));
 	}
+}
+
+void UART_vClearBuffer(){
+	u8 temp;
+	temp = UDR_REG;
+	CLR_BIT(UCSRA_REG, RXC_BIT);
 }

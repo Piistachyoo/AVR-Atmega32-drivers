@@ -14,38 +14,34 @@
 #include "../../../Services/STD_TYPES/STD_TYPES.h"
 #include "TMR_private.h"
 #include "TMR_config.h"
+#include "../GIE/GIE_interface.h"
 
 /****************** CONFIGURATION FOR TIMER ******************/
-#define MODE_SELECTION			NORMAL_MODE
-#define MODE_SELECTION_16BIT	CTC_OCR1A_MODE
-#define TIMER_INTERRUPT			CTC_IE_ENABLE
-#define OCR0_VALUE				250
-#define OCR1_VALUE				0
-#define OCR2_VALUE				0
-#define PRE_LOAD0_VALUE			24
-#define PRE_LOAD1_VALUE			0
-#define PRE_LOAD2_VALUE			0
-#define INVERT_OR_NOT			NON_INVERTING_MODE // NONE if no mode
 
+
+typedef struct{
+	enu_TimerChannel    TMR_TimerChannel;
+	enu_prescale_modes  TMR_Prescale;
+	enu_TimerToggleMode TMR_ToggleMode;
+	enu_TimerOCMode		TMR_OCMode;
+}TMR_cfg_t;
 
 /****************** FUNCTIONS PROTOTYPES ******************/
 
 // This function is responsible for enabling timer
-void TMR_vEnable(u8 Copy_u8SelectedChannel);
+void TMR_vInit(const TMR_cfg_t *TMR);
 
 // This function is responsible for disabling timer
-void TMR_vDisable(u8 Copy_u8SelectedChannel);
-
-void TMR_vStartTimer1(enu_prescale_modes prescale);
+void TMR_vStop(const TMR_cfg_t *TMR);
 
 // This function is responsible for setting the ICR top value
-void TMR_vSetICRTopValue(u16 Copy_u16TopValue);
+void TMR_vSetICRValue(const TMR_cfg_t *TMR, u16 Copy_u16ICRValue);
 
 // This function is responsible for setting the OCR top value
-void TMR_vSetOCRValue(u16 Copy_u16OCRValue);
+void TMR_vSetOCRValue(const TMR_cfg_t *TMR, u16 Copy_u16OCRValue);
 
 // This function starts the timer
-void TMR_vStartTimer0(enu_prescale_modes prescale);
+void TMR_vStartTimer(const TMR_cfg_t *TMR);
 
 
 #endif /* MCAL_ATMEGA32_TMR_TMR_INTERFACE_H_ */

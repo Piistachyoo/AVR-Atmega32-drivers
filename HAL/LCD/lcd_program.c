@@ -24,6 +24,9 @@ void LCD_8bit_vInit(const LCD_8bit_cfg *PTR_LCD){
 	_delay_ms(2);
 	/* Entry mode set */
 	LCD_8bit_vSendCmd(PTR_LCD, START_FROM_LEFT);
+	if(PTR_LCD->LCD_LED_PIN != NULL){
+		DIO_vSetPinDir(PTR_LCD->LCD_CtrlPort, PTR_LCD->LCD_LED_PIN, OUTPUT);
+	}
 }
 
 void LCD_8bit_vSendCmd(const LCD_8bit_cfg *PTR_LCD, u8 Copy_u8Cmd){
@@ -74,6 +77,13 @@ void LCD_8bit_vSendNumber(const LCD_8bit_cfg *PTR_LCD, u16 Copy_u16Number){
 	}
 }
 
+void LCD_8bit_vTurnOnLED(const LCD_8bit_cfg *PTR_LCD){
+	DIO_vSetPinValue(PTR_LCD->LCD_CtrlPort, PTR_LCD->LCD_LED_PIN, HIGH);
+}
+
+void LCD_8bit_vTurnOffLED(const LCD_8bit_cfg *PTR_LCD){
+	DIO_vSetPinValue(PTR_LCD->LCD_CtrlPort, PTR_LCD->LCD_LED_PIN, LOW);
+}
 
 void LCD_4bit_vInit(const LCD_4bit_cfg *PTR_LCD){
 	DIO_vSetGroupDir(PTR_LCD->LCD_PORT, OUTPUT);
@@ -102,6 +112,10 @@ void LCD_4bit_vInit(const LCD_4bit_cfg *PTR_LCD){
 
 	/* Entry mode set */
 	LCD_4bit_vSendCmd(PTR_LCD, START_FROM_LEFT);
+
+	if(PTR_LCD->LCD_LED_PIN != NULL){
+		DIO_vSetPinDir(PTR_LCD->LCD_PORT, PTR_LCD->LCD_LED_PIN, OUTPUT);
+	}
 }
 
 void LCD_4bit_vSendCmd(const LCD_4bit_cfg *PTR_LCD, u8 Copy_u8Cmd){
@@ -162,4 +176,12 @@ void LCD_4bit_vSendNumber(const LCD_4bit_cfg *PTR_LCD, u16 Copy_u16Number){
 			LCD_4bit_vSendChar(PTR_LCD, temp_array[ArrIndex]+48);
 		}
 	}
+}
+
+void LCD_4bit_vTurnOnLED(const LCD_4bit_cfg *PTR_LCD){
+	DIO_vSetPinValue(PTR_LCD->LCD_PORT, PTR_LCD->LCD_LED_PIN, HIGH);
+}
+
+void LCD_4bit_vTurnOffLED(const LCD_4bit_cfg *PTR_LCD){
+	DIO_vSetPinValue(PTR_LCD->LCD_PORT, PTR_LCD->LCD_LED_PIN, LOW);
 }

@@ -78,9 +78,6 @@ u16 ADC_u16Read (u8 Copy_u8Channel){
 #if ADC_IE == ADC_DISABLE_IE
 	// Wait for the conversion
 	while(! (ADCSRA_REG&(1<<ADIF_PIN) ));
-	CLR_BIT(ADCSRA_REG, ADIF_PIN);
-#elif ADC_IE == ADC_ENABLE_IE
-	while (ADCSRA_REG&(1<<ADIF_PIN));
 #endif
 	return ADC_DATA;
 }

@@ -1,7 +1,7 @@
 /*************************************************************************/
 /* Author        : Omar Yamany                                    		 */
 /* File          : TWI_config.h                                  	     */
-/* Date          : Mar 22, 2023	                                         */
+/* Date          : Apr 7, 2023	                                         */
 /* Version       : V1                                                    */
 /* GitHub        : https://github.com/Piistachyoo             		     */
 /*************************************************************************/
@@ -12,7 +12,9 @@
 /* Section : Includes */
 
 /* Section : Macro Declarations */
-
+#define F_CPU	8000000UL
+#define SCL_CLOCK	100000L
+#define DEVICE_ADDR	0x50
 /* Section : Macro Functions Declarations */
 
 /* Section : Data Type Declarations */

@@ -29,6 +29,7 @@ typedef struct{
 	u8 LCD_RS_PIN		:3;
 	u8 LCD_RW_PIN		:3;
 	u8 LCD_EN_PIN		:3;
+	u8 LCD_LED_PIN		:3;
 }LCD_8bit_cfg;
 
 typedef struct{
@@ -36,6 +37,7 @@ typedef struct{
 	u8 LCD_RS_PIN		:3;
 	u8 LCD_RW_PIN		:3;
 	u8 LCD_EN_PIN		:3;
+	u8 LCD_LED_PIN		:3;
 	u8 LCD_D4_PIN		:3;
 	u8 LCD_D5_PIN		:3;
 	u8 LCD_D6_PIN		:3;
@@ -53,6 +55,10 @@ void LCD_8bit_vSendString(const LCD_8bit_cfg *PTR_LCD, u8 *Copy_u8String);
 
 void LCD_8bit_vSendNumber(const LCD_8bit_cfg *PTR_LCD, u16 Copy_u16Number);
 
+void LCD_8bit_vTurnOnLED(const LCD_8bit_cfg *PTR_LCD);
+
+void LCD_8bit_vTurnOffLED(const LCD_8bit_cfg *PTR_LCD);
+
 void LCD_4bit_vInit(const LCD_4bit_cfg *PTR_LCD);
 
 void LCD_4bit_vSendCmd(const LCD_4bit_cfg *PTR_LCD, u8 Copy_u8Cmd);
@@ -62,5 +68,9 @@ void LCD_4bit_vSendChar(const LCD_4bit_cfg *PTR_LCD, u8 Copy_u8Char);
 void LCD_4bit_vSendString(const LCD_4bit_cfg *PTR_LCD, u8 *Copy_u8String);
 
 void LCD_4bit_vSendNumber(const LCD_4bit_cfg *PTR_LCD, u16 Copy_u16Number);
+
+void LCD_4bit_vTurnOnLED(const LCD_4bit_cfg *PTR_LCD);
+
+void LCD_4bit_vTurnOffLED(const LCD_4bit_cfg *PTR_LCD);
 
 #endif /* LCD_LCD_INTERFACE_H_ */

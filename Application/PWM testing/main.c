@@ -5,7 +5,7 @@
 /* Version       : V1                                                    */
 /* GitHub        : https://github.com/Piistachyoo             		     */
 /*************************************************************************/
-
+/*
 #include "../../MCAL/ATMEGA32/DIO/DIO_interface.h"
 #include "../../MCAL/ATMEGA32/ADC/ADC_interface.h"
 #include "../../MCAL/ATMEGA32/TMR/TMR_interface.h"
@@ -51,4 +51,4 @@ void main()
 	}
 }
 
-
+*/
