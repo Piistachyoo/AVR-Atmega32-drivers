@@ -39,14 +39,19 @@ void TMR_vInit(const TMR_cfg_t *TMR);
 // This function is responsible for disabling timer
 void TMR_vStop(const TMR_cfg_t *TMR);
 
-// This function is responsible for setting the ICR top value
+// This function is responsible for setting the ICR register value
 void TMR_vSetICRValue(const TMR_cfg_t *TMR, u16 Copy_u16ICRValue);
 
-// This function is responsible for setting the OCR top value
+// This function is responsible for setting the OCR register value
 void TMR_vSetOCRValue(const TMR_cfg_t *TMR, u16 Copy_u16OCRValue);
+
+// This function is responsible for setting the TCNT register value
+void TMR_vSetTCNTValue(const TMR_cfg_t *TMR, u16 Copy_u16TCNTValue);
 
 // This function starts the timer
 void TMR_vStartTimer(const TMR_cfg_t *TMR);
 
+// This function sets the callback for the ISR
+void TMR_vSetCallback(const TMR_cfg_t *TMR, void (*ptr_func)(void));
 
 #endif /* MCAL_ATMEGA32_TMR_TMR_INTERFACE_H_ */

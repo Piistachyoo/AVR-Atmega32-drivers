@@ -73,6 +73,11 @@ void LCD_4bit_vSendChar(const LCD_4bit_cfg *PTR_LCD, u8 Copy_u8Char){
 	_delay_us(300);
 }
 
+void LCD_4bit_vSendChar_pos(const LCD_4bit_cfg *PTR_LCD, u8 Copy_u8Char, u8 row, u8 column){
+	LCD_4bit_SetCursorPosition(PTR_LCD, column, row);
+	LCD_4bit_vSendChar(PTR_LCD, Copy_u8Char);
+}
+
 void LCD_4bit_vSendString(const LCD_4bit_cfg *PTR_LCD, u8 *Copy_u8String){
 	for(int StrIndex=0;Copy_u8String[StrIndex] != '\0';StrIndex++){
 		LCD_4bit_vSendChar(PTR_LCD, (u8)(Copy_u8String[StrIndex]));

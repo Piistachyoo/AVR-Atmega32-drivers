@@ -47,6 +47,8 @@ void LCD_4bit_vSendCmd(const LCD_4bit_cfg *PTR_LCD, u8 Copy_u8Cmd);
 
 void LCD_4bit_vSendChar(const LCD_4bit_cfg *PTR_LCD, u8 Copy_u8Char);
 
+void LCD_4bit_vSendChar_pos(const LCD_4bit_cfg *PTR_LCD, u8 Copy_u8Char, u8 row, u8 column);
+
 void LCD_4bit_vSendString(const LCD_4bit_cfg *PTR_LCD, u8 *Copy_u8String);
 
 void LCD_4bit_vSendString_pos(const LCD_4bit_cfg *PTR_LCD, u8 *Copy_u8String, u8 row, u8 column);

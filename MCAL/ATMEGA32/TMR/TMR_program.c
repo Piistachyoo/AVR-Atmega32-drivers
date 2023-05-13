@@ -6,10 +6,12 @@
 /* GitHub        : https://github.com/Piistachyoo             		     */
 /*************************************************************************/
 
-/******************  ******************/
 
 #include "TMR_interface.h"
 
+static void (*TMR0_Callback)(void);
+static void (*TMR1_Callback)(void);
+static void (*TMR2_Callback)(void);
 
 void TMR_vInit(const TMR_cfg_t *TMR){
 	if(TMR != NULL){
@@ -18,6 +20,7 @@ void TMR_vInit(const TMR_cfg_t *TMR){
 			TCCR0_REG = (TCCR0_REG&0xB7);
 			if(TMR->TMR_ToggleMode == TMR_InterruptMode){
 				TIMSK_REG = (TIMSK_REG&0xFC) | 0x01;
+				GIE_vEnableInterrupts();
 			}
 			else if(TMR->TMR_ToggleMode == TMR_OCMode){
 				if(TMR->TMR_OCMode == OC_Disconnected){
@@ -40,6 +43,7 @@ void TMR_vInit(const TMR_cfg_t *TMR){
 			TCCR0_REG = (TCCR0_REG&0xB7) | 0x8;
 			if(TMR->TMR_ToggleMode == TMR_InterruptMode){
 				TIMSK_REG = (TIMSK_REG&0xFC) | 0x02;
+				GIE_vEnableInterrupts();
 			}
 			else if(TMR->TMR_ToggleMode == TMR_OCMode){
 				if(TMR->TMR_OCMode == OC_Disconnected){
@@ -63,6 +67,7 @@ void TMR_vInit(const TMR_cfg_t *TMR){
 			TCCR1B_REG = (TCCR1B_REG & 0xE7);
 			if(TMR->TMR_ToggleMode == TMR_InterruptMode){
 				TIMSK_REG = (TIMSK_REG&0xC3) | 0x04;
+				GIE_vEnableInterrupts();
 			}
 			else if(TMR->TMR_ToggleMode == TMR_OCMode){
 				if(TMR->TMR_OCMode == OC_Disconnected){
@@ -86,6 +91,7 @@ void TMR_vInit(const TMR_cfg_t *TMR){
 			TCCR1B_REG = (TCCR1B_REG & 0xE7) | 0x08;
 			if(TMR->TMR_ToggleMode == TMR_InterruptMode){
 				TIMSK_REG = (TIMSK_REG&0xC3) | 0x18;
+				GIE_vEnableInterrupts();
 			}
 			else if(TMR->TMR_ToggleMode == TMR_OCMode){
 				if(TMR->TMR_OCMode == OC_Disconnected){
@@ -109,6 +115,7 @@ void TMR_vInit(const TMR_cfg_t *TMR){
 			TCCR1B_REG = (TCCR1B_REG & 0xE7) | 0x18;
 			if(TMR->TMR_ToggleMode == TMR_InterruptMode){
 				TIMSK_REG = (TIMSK_REG&0xC3) | 0x18;
+				GIE_vEnableInterrupts();
 			}
 			else if(TMR->TMR_ToggleMode == TMR_OCMode){
 				if(TMR->TMR_OCMode == OC_Disconnected){
@@ -131,6 +138,7 @@ void TMR_vInit(const TMR_cfg_t *TMR){
 			TCCR2_REG = (TCCR2_REG&0xB7);
 			if(TMR->TMR_ToggleMode == TMR_InterruptMode){
 				TIMSK_REG = (TIMSK_REG&0x3F) | 0x40;
+				GIE_vEnableInterrupts();
 			}
 			else if(TMR->TMR_ToggleMode == TMR_OCMode){
 				if(TMR->TMR_OCMode == OC_Disconnected){
@@ -153,6 +161,7 @@ void TMR_vInit(const TMR_cfg_t *TMR){
 			TCCR2_REG = (TCCR2_REG&0xB7);
 			if(TMR->TMR_ToggleMode == TMR_InterruptMode){
 				TIMSK_REG = (TIMSK_REG&0x3F) | 0x80;
+				GIE_vEnableInterrupts();
 			}
 			else if(TMR->TMR_ToggleMode == TMR_OCMode){
 				if(TMR->TMR_OCMode == OC_Disconnected){
@@ -332,4 +341,63 @@ void TMR_vSetOCRValue(const TMR_cfg_t *TMR, u16 Copy_u16OCRValue){
 	}
 }
 
+void TMR_vSetTCNTValue(const TMR_cfg_t *TMR, u16 Copy_u16TCNTValue){
+	if(TMR != NULL){
+		switch(TMR->TMR_TimerChannel){
+		case TIMER0_NORMAL:
+		case TIMER0_CTC:
+			TCNT0_REG = (u8)Copy_u16TCNTValue;
+			break;
+		case TIMER1_NORMAL:
+		case TIMER1_CTC_OCR:
+		case TIMER1_CTC_ICR:
+			TCNT1L_REG = (u8)(Copy_u16TCNTValue & 0x00FF);
+			TCNT1H_REG = (u8)(Copy_u16TCNTValue >> 8);
+			break;
+		case TIMER2_NORMAL:
+		case TIMER2_CTC:
+			TCNT2_REG = (u8)Copy_u16TCNTValue;
+			break;
+		default: /* Do Nothing */ break;
+		}
+	}
+}
 
+void TMR_vSetCallback(const TMR_cfg_t *TMR, void (*ptr_func)(void)){
+	if(TMR != NULL){
+	switch(TMR->TMR_TimerChannel){
+	case TIMER0_NORMAL:
+	case TIMER0_CTC:
+		TMR0_Callback = ptr_func;
+		break;
+	case TIMER1_NORMAL:
+	case TIMER1_CTC_OCR:
+	case TIMER1_CTC_ICR:
+		TMR1_Callback = ptr_func;
+		break;
+	case TIMER2_NORMAL:
+	case TIMER2_CTC:
+		TMR2_Callback = ptr_func;
+		break;
+	default: /* Do Nothing */ break;
+	}
+}
+}
+
+/* Timer 0 OVF ISR */
+void __vector_11(void) __attribute__ ((signal));
+void __vector_11(void){
+	/* Execute ISR */
+	if(TMR0_Callback){
+		TMR0_Callback();
+	}
+}
+
+/* Timer 2 OVF ISR */
+void __vector_5(void) __attribute__ ((signal));
+void __vector_5(void){
+	/* Execute ISR */
+	if(TMR2_Callback){
+		TMR2_Callback();
+	}
+}

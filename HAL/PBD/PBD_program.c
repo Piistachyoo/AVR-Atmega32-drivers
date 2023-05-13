@@ -29,16 +29,25 @@ Std_ReturnType PBD_vGetButtonState(const PB_cfg *PB, u8 *Copy_u8State){
 	Std_ReturnType ret = E_NOT_OK;
 	u8 LOCAL_Button_State;
 	if(PB != NULL){
-		LOCAL_Button_State = DIO_u8ReadPinValue(PB->PortName, PB->PinNum);
 		switch(PB->PBmode){
 		case MODE_PULLUP:
-			if(LOCAL_Button_State == 0)		{ *Copy_u8State = BUTTON_PRESSED;  }
+			LOCAL_Button_State = DIO_u8ReadPinValue(PB->PortName, PB->PinNum);
+			if(LOCAL_Button_State == 0)		{
+				while(0 == DIO_u8ReadPinValue(PB->PortName, PB->PinNum));
+				*Copy_u8State = BUTTON_PRESSED;
+			}
 			else if(LOCAL_Button_State == 1){ *Copy_u8State = BUTTON_RELEASED; }
-			else{ /* Do Nothing */ }		  break;
+			else{ /* Do Nothing */ }
+			break;
 		case MODE_PULLDOWN:
+			LOCAL_Button_State = DIO_u8ReadPinValue(PB->PortName, PB->PinNum);
 			if(LOCAL_Button_State == 0)		{ *Copy_u8State = BUTTON_RELEASED; }
-			else if(LOCAL_Button_State == 1){ *Copy_u8State = BUTTON_PRESSED;  }
-			else{ /* Do Nothing */ }		  break;
+			else if(LOCAL_Button_State == 1){
+				while(1 == DIO_u8ReadPinValue(PB->PortName, PB->PinNum));
+				*Copy_u8State = BUTTON_PRESSED;
+			}
+			else{ /* Do Nothing */ }
+			break;
 		default: /* Do Nothing */ break;
 		}
 		ret = E_OK;

@@ -19,7 +19,7 @@
 
 /* Section : Macro Declarations */
 #define TRIG_PORT		PORTD
-#define TRIG_PIN		PIN0
+#define TRIG_PIN		PIN7
 #define ECHO_PORT		PORTD
 #define ECHO_PIN		PIN6
 

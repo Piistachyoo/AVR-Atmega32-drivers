@@ -12,6 +12,8 @@
 /****************** SETTING ADDRESES FOR USED REGISTERS ******************/
 #define TCNT0_REG		*((volatile u8*) 0x52)
 #define TCNT1_REG		*((volatile u16*) 0x4C)
+#define TCNT1L_REG		*((volatile u8*) 0x4C)
+#define TCNT1H_REG		*((volatile u8*) 0x4D)
 #define TCNT2_REG		*((volatile u8*) 0x44)
 #define TCCR0_REG		*((volatile u8*) 0x53)
 #define TCCR1A_REG		*((volatile u8*) 0x4F)
